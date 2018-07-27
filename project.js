@@ -21,8 +21,7 @@ var rowConverter = function(d) {
 	};
 }
 
-//set color scale
-var color = d3.scaleOrdinal(d3.schemeCategory10);
+
 //set x axis number format
 var formatAs = d3.format(".2s");
 
@@ -47,11 +46,22 @@ d3.csv("data.csv", rowConverter, function(d) {
 
     const yearAsKey = d3.nest()
                       .key(function(d) {return d.Year.getFullYear()}).sortKeys(d3.descending)
-                      .sortValues(function(a,b){return ((a.CountryName < b.CountryName)?-1 : 1); return 0;})
+                      .sortValues(function(a,b){return d3.ascending(a.CountryName, b.CountryName);})
                       .map(d);
+
+    const regionAsKey = d3.nest()
+                      .key(function(d) {return d.Region;}).sortKeys(d3.ascending)
+                      .entries(d)
+    const regions = ["East Asia & Pacific", "Europe & Central Asia", "Latin America & Caribbean",
+                    "Middle East & North Africa", "North America", "South Asia","Sub-Saharan Africa"];
+
+    //set color scale
+    var color = d3.scaleOrdinal(d3.schemeCategory10.slice(0,7)).domain(regions);
+
 
     var span = d3.select("#select").append("span")
              .text("Choose a year: ")
+
 
     var yearInput = d3.select("#select").append('select')
                   .attr("id", "yearSelect")
@@ -94,11 +104,11 @@ d3.csv("data.csv", rowConverter, function(d) {
 	         	return yscale(d.PopulationAbove65);
 	         })
              .attr("r", 4)
-             /*
-	         .attr("r", function(d){
+             
+	         /*.attr("r", function(d){
 	         	return rscale(d.IncomeGroup);
-	         })
-             */
+	         })*/
+             
 	         .style("fill", function(d){return color(d.Region);})
              .on("mouseover", function(d) {
                 var xPosition = parseFloat(d3.select(this).attr("cx"));
@@ -142,7 +152,7 @@ d3.csv("data.csv", rowConverter, function(d) {
 
                 
     var legend = svg_scatter.selectAll(".legend")
-                .data(color.domain())
+                .data(regionAsKey)
                 .enter()
                 .append("g")
                 .attr("class", "legend")
@@ -152,7 +162,7 @@ d3.csv("data.csv", rowConverter, function(d) {
           .attr("x", width -18)
           .attr("width", 18)
           .attr("height", 18)
-          .style("fill", color)	
+          .style("fill", function(d){return color(d.key);})	
 
 
     legend.append("text")
@@ -161,7 +171,7 @@ d3.csv("data.csv", rowConverter, function(d) {
           .attr("dy", ".35em")
           .style("text-anchor", "end")
           .style("font-size","8px")
-          .text(function(d){return d})
+          .text(function(d){return d.key})
 
 
 	svg_scatter.append("g")
@@ -181,10 +191,12 @@ d3.csv("data.csv", rowConverter, function(d) {
 
         var newYear = d3.select(this).property('value')
 
+
+
         var new_circle = d3.selectAll("circle")
                            .data(yearAsKey.get(newYear))
 
-          .transition().duration(1000)
+          .transition(year).duration(1000)
           .delay(function(d,i){
             return i*10;
           })          
@@ -195,7 +207,14 @@ d3.csv("data.csv", rowConverter, function(d) {
             return yscale(d.PopulationAbove65)
           })
           .attr("r", 4)
+          .style("fill", function(d){return color(d.Region);})
+          /*
+          .attr("r", function(d){
+                return rscale(d.IncomeGroup);
+             })
+        */
 
+        
 
       }
 })
