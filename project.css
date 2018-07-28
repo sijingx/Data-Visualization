@@ -35,3 +35,43 @@ circle:hover {
     font-size: 16px;
     line-height: 20px;
 }
+
+#linechart, #scatterplot {
+  float: left;
+  width: 48%;
+}
+
+#plot {
+    display: inline-block;
+    width:1300px;
+    height: 1100px;
+}
+
+#annotation {
+	position: absolute;
+	left: 500px;
+	top: 280px;
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+	background-color: rgba(191, 63, 127, 0.2);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    font-size: 12px;
+}
+
+.warningline {
+            fill: none;
+            stroke: red;
+            stroke-width: 2px;
+            stroke-dasharray: 5 5;
+        }
+
+
+
+

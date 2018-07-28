@@ -7,33 +7,35 @@
         <link rel="stylesheet" type="text/css" href="project.css" />
     </head>
     <body>
-    	<button><a href="#essay">About the visualization</a></button>
-    	<div id="scatterplot">
-    		<h2> Population above age of 65 (% of Total) VS. Total Population</h2>
-    		<div id="select">
-    			
-    		</div>
-    		<div id="tooltip" class="hidden">
-                <p><strong><span id="name">Country Name</span></strong></p>
-                <p><span id="percentage">100</span>%</p>
-                <p><span id="total">100</span></p>
-                <p><span id="year">100</span></p>
-           </div>
+    	<div>
+    	    <button><a href="#essay">About the visualization</a></button>
     	</div>
-    	<br>
-        
-    	<div id="linechart">
-			<h2> Aging Population Above 65 (% of Total) in Different Regions In The World 1998-2016</h2>
-    	</div>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<br>
-    	<div id="essay">
-			<h2> About the visualization </h2>
-    	</div>
+    	<div id="plot">
+	    	<div id="scatterplot">
+	    		<h3 > Population above age of 65 (% of Total) VS. Total Population</h3>
+	    		<div id="select">   			
+	    		</div>
+	    		<div id="annotation">
+	           	    <p id="message">As the year increase, there are more countries with over 15% aging population above 65.</p>
+	            </div>
+	    		<div id="tooltip" class="hidden">
+	                <p><strong><span id="name">Country Name</span></strong></p>
+	                <p><span id="percentage">100</span>%</p>
+	                <p><span id="total">100</span></p>
+	                <p><span id="year">100</span></p>
+	           </div>
+
+	    	</div>
+	    	<br>
+	        
+	    	<div id="linechart">
+				<h3> Population Above 65 (%) in Different Countries 1998-2016</h3>
+	    	</div>
+	    </div>
+        <div>
+        	<h3>About the visualization</h3>
+        </div>
+    	
 
 
         <script type="text/javascript" src="project.js">
