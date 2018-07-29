@@ -7,9 +7,9 @@
         <link rel="stylesheet" type="text/css" href="project.css" />
     </head>
     <body>
-
+        <div id="top"></div>
     	<div>
-    	    <a href="#essay"> <button type="button" id="buttonclick"> About The Visualization </button>  </a>
+    	    <a href="#essay"> <button type="button" id="buttonclick" onclick="show()"> About The Visualization </button>  </a>
     	</div>
     	<div id="plot">
 	    	<div id="scatterplot">
@@ -46,7 +46,7 @@
 				
 	    	</div>
 	    </div>
-        <div id="essay">
+        <div id="essay" class="showup">
         	<h2>About the visualization</h2>
         	<li><strong>Hybrid Structure</strong>
         		<ul>
@@ -94,7 +94,7 @@
                 <ul>
                     <strong>"Region"</strong> is used to control the state of the scatterplot. Users can click on the legend of scatterplot to select circles representing only the selected region. This state will not change until users click the message of "click me to restore".
                 </ul>
-                    
+
         	    <ul>
         	    	<strong>Current State: </strong>year of "2016" and country of "Afghanistan" control the current state.
         	    </ul>
@@ -126,10 +126,12 @@
                    </li>
 
 	        	</ul>
+               
         </div>
-        <br>
-        <br>
-        <br>
+
+        <div>
+            <a href="#top"> <button type="button" id="bottombutton"> Back </button>  </a>
+        </div>
 
     	
         <script type="text/javascript" src="project.js"></script>

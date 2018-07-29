@@ -1,4 +1,6 @@
 
+
+
 //set the margin of the svg
 const margin = {top: 20, right:20, bottom: 20, left:40};
 const width = 600 - margin.left - margin.right;   
@@ -541,4 +543,9 @@ d3.csv("data.csv", rowConverter, function(d) {
 
 
 })
+document.getElementById('essay').style.visibility='hidden'
+
+function show(){
+  document.getElementById('essay').style.visibility='visible'
+}
 
