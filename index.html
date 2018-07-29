@@ -7,8 +7,9 @@
         <link rel="stylesheet" type="text/css" href="project.css" />
     </head>
     <body>
+
     	<div>
-    	    <button><a href="#essay">About the visualization</a></button>
+    	    <a href="#essay"> <button type="button" id="buttonclick"> About The Visualization </button>  </a>
     	</div>
     	<div id="plot">
 	    	<div id="scatterplot">
@@ -16,32 +17,116 @@
 	    		<div id="select">   			
 	    		</div>
 	    		<div id="annotation">
-	           	    <p id="message">As the year increase, there are more countries with over 15% aging population above 65.</p>
+	           	    <p id="message">Most countries with over 15% aging population above 65 are from Europe & North America</p>
 	            </div>
 	    		<div id="tooltip" class="hidden">
 	                <p><strong><span id="name">Country Name</span></strong></p>
 	                <p><span id="percentage">100</span>%</p>
 	                <p><span id="total">100</span></p>
 	                <p><span id="year">100</span></p>
+	                <p><span id="region-which">100</span></p>
 	           </div>
-
 	    	</div>
 	    	<br>
 	        
 	    	<div id="linechart">
+	    		<div id="instruction">
+	    		    <p>
+					    <h4>How to use this narrative visualization?</h4>
+					    <li><em><strong>Select</strong></em> a specific year on <em><strong>top left</strong></em> for a scatterplot of the selected year.</li>
+					    <li><em><strong>Click</strong></em> any <em><strong>circle</strong></em> on scatterplot to get a line chart for the selected country.</li>
+					    <li><em><strong>Mouseover</strong></em> each circle to get details.</li>
+				    </p>
+			    </div>
+
 				<h3> Population Above 65 (%) in Different Countries 1998-2016</h3>
+				
 	    	</div>
 	    </div>
-        <div>
-        	<h3>About the visualization</h3>
+        <div id="essay">
+        	<h2>About the visualization</h2>
+        	<li><strong>Hybrid Structure</strong>
+        		<ul>
+        			This narrativa visualization follows a <strong>"drill-down story" </strong>hybrid structure.The opening scence shows a scatterplot on the left, which illustrates the percentage of aging population above 65 of over 200 countries and their populations for the year 2016, and a line chart on the right showing the percentage of aging population above 65 trend for the years 1998-2016 of the country with the largest percentage in 2016 (That country is "Japan"). From here, the users can drill down to explore the visualization. For example:
+        	    </ul>
+        		<ul>
+        			<li>
+        				Users can mouse hover the circle and get detailed information about the selected country, including "Country name", "Total Population","The percentage of aging population" etc. 
+        			</li>
+        			<li>
+        				Users can click on a particular circle on the scatterplot, and get a line chart on the right for that selected country.
+        			</li>
+        			<li>
+        				Users can also select different years to see how percentage of aging population above 65 of all regions moves across years.
+        			</li>
+        		</ul>
+        	</li>
+        	    
+        	<li><strong>Scenes</strong></li>
+        		<ul>
+        			<Strong>Layout: </Strong>The layout of the scene consists of two charts. A scatterplot on the left (Population above age of 65 (% of Total) VS. Total Population) and a line chart on the right (Population Above 65 (%) in Different Countries 1998-2016).
+        		</ul>
+        		<ul>
+        		    <STRONG>Design: </STRONG>When scenes change with different parameters(<em>year</em> for scatterplot and <em>country</em> for line chart), they always follow the same template which are the scatterplot and line chart. The axis of the two chart never change in order to show the transition and difference when parameters change.
+        		</ul>
+        		
+        	<li><strong>Annotations</strong></li>
+        	    <ul>
+        	    	<strong>Annotations on scatterplot: </strong>There are two red warning lines on the plot, each with a message attached to it. This annotation will not clear when the "year" parameter changes the scene so that users can clearly observe which and how the countries pass the warning line across years.
+        	    </ul>
+        	    <ul>
+        	    	<strong>Annotations on line chart: </strong>There is an annotation on line chart showing which country the line chart is currently representing. This annotation clears when scene changes as the "country" parameter changes, and then change to the country name representing the new scene. As scene changes, the annotation follows the same template, including the same position and same style.
+        	    </ul>
+
+        	<li><strong>Parameters</strong></li>
+        	    <ul>
+        	    	<strong>"Year"</strong> is used to control the state of scatterplot, users can select different year on top left to change scene for scatterplot. <strong>"Country"</strong> is used to control the state of line chart, users can click circles which represent different countries on scatterplot to change scene for line chart.
+        	    </ul>
+        	    <ul>
+        	    	<strong>Current State: </strong>year of "2016" and country of "Japan" control the current state.
+        	    </ul>
+        	<li><strong>Triggers</strong></li>
+        	<ul>
+        	    <li>
+        	    	Users can <strong>select</strong> the "year" on top left to select the year parameter to change scence on scatterplot. After a year is selected, users can clearly see the circles on the scatter plot moving.
+        	    </li>
+        	    <li>
+        	    	Users can <strong>click</strong> the circles on the scatterplot, to change the scene on line chart, users can clearly see the lines moving upwards or downwards, also the annotation changes.
+        	    </li>
+        	    <li>
+        	    	Users can <strong>mouse over</strong> the circles on the scatterplot, and get more details through tooltip.
+        	    </li>
+        	</ul>
         </div>
+        <br>
+        <br>
+        <br>
+
     	
-
-
-        <script type="text/javascript" src="project.js">
-        	
-
-        </script>
+        <script type="text/javascript" src="project.js"></script>
         
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

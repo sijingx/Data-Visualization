@@ -162,6 +162,9 @@ d3.csv("data.csv", rowConverter, function(d) {
 
                 d3.select("#year")
                   .text("Year: "+d.Year.getFullYear())
+                d3.select("#region-which")
+                  .text("Region: "+d.Region)
+
 
                 d3.select("#tooltip").classed("hidden", false);
              })
@@ -214,7 +217,7 @@ d3.csv("data.csv", rowConverter, function(d) {
           .attr("width", 18)
           .attr("height", 18)
           .style("fill", function(d){return color(d.key);})	
-          .on("click", regionChange)
+          //.on("click", regionChange)
 
  
 
@@ -421,11 +424,11 @@ d3.csv("data.csv", rowConverter, function(d) {
                         .attr("d", line)
 
         var new_label = d3.select(".country-label")
-                          .text("Country: "+new_country)
+                          .text(new_country)
 
     }
 
-    function regionChange() {
+    /*function regionChange() {
 
         var class_name = d3.select(this).attr("id")
 
@@ -437,6 +440,6 @@ d3.csv("data.csv", rowConverter, function(d) {
         var selected_circle = d3.selectAll(".East Asia & Pacific").style("opacity", newOpacity)
         class_name.active = active
 
-    }
+    }*/
 })
 
