@@ -3,6 +3,10 @@
 	opacity: 0.75;
 
 }	
+
+.unhighlighted {
+    display:none;
+}
 .label {
 	stroke: :#000;
 }
@@ -50,7 +54,7 @@
 	left: 500px;
 	top: 320px;
     width: 100px;
-    height: 90px;
+    height: 80px;
     padding: 10px;
 	background-color: rgba(191, 63, 127, 0.2);
     -webkit-border-radius: 10px;

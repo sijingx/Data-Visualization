@@ -4,7 +4,9 @@ const margin = {top: 20, right:20, bottom: 20, left:40};
 const width = 600 - margin.left - margin.right;   
 const height = 500 - margin.top - margin.bottom;
 const line_width = 400 - margin.left - margin.right;   
-const line_height = 500 - margin.top - margin.bottom;   
+const line_height = 500 - margin.top - margin.bottom;  
+
+var selected_year = 2016 
 
 
 //parse Date objects
@@ -13,12 +15,12 @@ const parseTime = d3.timeParse("%Y")
 //parse csv
 var rowConverter = function(d) {
     return {
-        CountryName: d.CountryName,
+        CountryName: d.CountryName.replace(/[, ,\s,.,',(,)]+/g,'').trim(),
         Year : parseTime(d.Year),
         PopulationAbove65 : +d.PopulationAbove65,
         Population : +d.Population,
         IncomeGroup : d.IncomeGroup,
-        Region : d.Region
+        Region : d.Region.replace(/[\s, &]+/g, '')
     };
 }
 
@@ -62,6 +64,11 @@ d3.csv("data.csv", rowConverter, function(d) {
                   .rollup(function(leaves) {return leaves.length;})
                   .entries(d);
 
+    const countries = d3.nest()
+                      .key(function(d){return d.CountryName}).sortKeys(d3.ascending)
+                      .rollup(function(leaves){return leaves.length})
+                      .entries(d)
+
     const yearAsKey = d3.nest()
                       .key(function(d) {return d.Year.getFullYear()}).sortKeys(d3.descending)
                       .sortValues(function(a,b){return d3.ascending(a.CountryName, b.CountryName);})
@@ -94,8 +101,11 @@ d3.csv("data.csv", rowConverter, function(d) {
     var color = d3.scaleOrdinal(d3.schemeCategory10.slice(0,7)).domain(regions);
 
 
-    var span = d3.select("#select").append("span")
+    var yearspan = d3.select("#select").append("span")
+             .attr("id","yearOptions")
              .text("Choose a year: ")
+
+    
 
 
     var yearInput = d3.select("#select").append('select')
@@ -107,7 +117,40 @@ d3.csv("data.csv", rowConverter, function(d) {
                   .append('option')
                   .attr('value', function(d){return d.key;})
                   .text(function(d){return d.key;})
-	
+
+
+    var countriesspan = d3.select("#select").append("span")
+             .attr("id","countryOptions")
+             .text(" Choose a country: ")
+
+    var countryInput = d3.select("#select").append("select")
+                      .attr("id", "countrySelect")
+                      .on("change", function(){
+                          var new_country = d3.select(this).property('value')
+                          var new_dataset = countryAsKey.get(new_country);
+
+                          var new_path = d3.selectAll(".lines")
+                                          .datum(new_dataset)
+                                          .transition().duration(1000)
+                                          .attr("d", line)
+
+                          var new_label = d3.select(".country-label")
+                                            .text(new_country)
+
+                          console.log(new_country)
+
+                          d3.select("#"+new_country).style("fill", "yellow").attr("r", 8)
+
+                      })
+                      .selectAll("option")
+                      .data(countries)
+                      .enter()
+                      .append('option')
+                      .attr("value", function(d){return d.key;})
+                      .text(function(d){return d.key})
+
+
+	 
     // set circle scales			
     var xscale = d3.scaleLog()
                    .domain([d3.min(d, function(d) {return d.Population}), d3.max(d, function(d){return d.Population})])
@@ -131,7 +174,8 @@ d3.csv("data.csv", rowConverter, function(d) {
 	         .enter()           	         
 	         .append("circle")
 	         .attr("class", function(d){return "dot "+ d.Region})
-             .attr("id", function(d) {return d.CountryName})
+           .classed("unhighlighted", false)
+             .attr("id", function(d) {return d.CountryName;})
 
 	         .attr("cx", function(d) {
 	         	return xscale(d.Population);
@@ -186,6 +230,32 @@ d3.csv("data.csv", rowConverter, function(d) {
              })
              .on("click", countryChange)
 
+  var current_state = d3.select("#Afghanistan").attr("r",8).style("fill", "yellow")
+
+//restore to original 
+
+  var restore = svg_scatter.append("g")
+                           .attr("transform", "translate(60,6)")
+                           .append("text")
+                           .attr("x", 0)
+                           .attr("y", 6)
+                           .attr("width", 50)
+                           .attr("height", 20)
+                           .style("fill", "Black")
+                           .text("Click me to restore")
+                           .style("font-size", "15px")
+                           .style("font-weight", 700)
+                           .style("text-decoration", "underline")
+                           .style("font-family","Arial")
+                           .on("click", restore)
+                           //.title("Restore")
+
+  
+
+       
+                  
+  
+
 //append scatterplot axis
 	var xAxis = d3.axisBottom().scale(xscale).ticks(5).tickFormat(formatAs);
 	var yAxis = d3.axisLeft().scale(yscale);
@@ -230,7 +300,16 @@ d3.csv("data.csv", rowConverter, function(d) {
           .attr("width", 18)
           .attr("height", 18)
           .style("fill", function(d){return color(d.key);})	
-          //.on("click", regionChange)
+          .on("click", function(){
+               d3.selectAll("circle")
+                 .data(yearAsKey.get(selected_year), function(d) {return d.CountryName;})
+                 .style("fill", function(d){return color(d.Region)})
+                 .attr("r", 4)
+
+               var region_name = d3.select(this).attr("id")
+               d3.selectAll(".dot").classed("unhighlighted", true)
+               d3.selectAll("."+region_name).classed("unhighlighted", false)
+          })
 
  
 
@@ -289,7 +368,7 @@ d3.csv("data.csv", rowConverter, function(d) {
     svg_line.append("g")
             .attr("id", "path")
            .append("path")
-            .datum(countryAsKey.get("Japan"))        
+            .datum(countryAsKey.get("Afghanistan"))        
             .attr("class", "lines")
             .attr("fill", "none")
       .attr("stroke", "steelblue")
@@ -348,7 +427,7 @@ d3.csv("data.csv", rowConverter, function(d) {
           .attr("dy", ".35em")
           .style("text-anchor", "end")
           .style("font-size","8px")
-          .text("Japan")
+          .text("Afghanistan")
           .style("font-size", "20px")
 
 //set up line chart 2
@@ -405,7 +484,8 @@ d3.csv("data.csv", rowConverter, function(d) {
     function yearChange(){
 
         var newYear = d3.select(this).property('value')
-
+       
+        selected_year = newYear;
 
         var new_circle = d3.selectAll("circle")
                            .data(yearAsKey.get(newYear), function(d) {return d.CountryName;})
@@ -436,7 +516,7 @@ d3.csv("data.csv", rowConverter, function(d) {
 
 
         var new_country = d3.select(this).attr("id")
-        console.log(new_country)
+        //console.log(new_country)
         var new_dataset = countryAsKey.get(new_country);
 
         var new_path = d3.selectAll(".lines")
@@ -449,18 +529,16 @@ d3.csv("data.csv", rowConverter, function(d) {
 
     }
 
-    /*function regionChange() {
+    function restore(){
+      d3.selectAll("circle")
+        .data(yearAsKey.get(selected_year), function(d) {return d.CountryName;})
+        .style("fill", function(d){return color(d.Region)})
+        .attr("r", 4)
+      //d3.select("#Afghanistan").attr("r", 8).style("fill","yellow")
 
-        var class_name = d3.select(this).attr("id")
+      d3.selectAll(".dot").classed("unhighlighted", false)
+    }
 
-        var active = class_name.active?0:1
-        var newOpacity = active? 0:1
 
-        var all_circles = d3.select(".dot").style("opacty", newOpacity)
-                          
-        var selected_circle = d3.selectAll(".East Asia & Pacific").style("opacity", newOpacity)
-        class_name.active = active
-
-    }*/
 })
 
