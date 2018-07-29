@@ -248,6 +248,14 @@ d3.csv("data.csv", rowConverter, function(d) {
                .attr("y2", yscale(15))
                .attr("class", "warningline")
 
+    svg_scatter.append("line")
+               .attr("x1", 0)
+               //.attr("x1", xscale(d3.min(d, function(d) {return d.Population})))
+               .attr("y1", yscale(4))
+               .attr("x2", xscale(d3.max(d, function(d) {return d.Population}))+100)
+               .attr("y2", yscale(4))
+               .attr("class", "warningline")
+
 
     //set up line chart scales
     var x = d3.scaleTime()

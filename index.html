@@ -19,6 +19,9 @@
 	    		<div id="annotation">
 	           	    <p id="message">Most countries with over 15% aging population above 65 are from Europe & North America</p>
 	            </div>
+	            <div id="annotation2">
+	           	    <p id="message2">Most countries with under 4% aging population above 65 are from Africa and Middle East.</p>
+	            </div>
 	    		<div id="tooltip" class="hidden">
 	                <p><strong><span id="name">Country Name</span></strong></p>
 	                <p><span id="percentage">100</span>%</p>
@@ -32,10 +35,8 @@
 	    	<div id="linechart">
 	    		<div id="instruction">
 	    		    <p>
-					    <h4>How to use this narrative visualization?</h4>
-					    <li><em><strong>Select</strong></em> a specific year on <em><strong>top left</strong></em> for a scatterplot of the selected year.</li>
-					    <li><em><strong>Click</strong></em> any <em><strong>circle</strong></em> on scatterplot to get a line chart for the selected country.</li>
-					    <li><em><strong>Mouseover</strong></em> each circle to get details.</li>
+					    <h4><em>How to use this narrative visualization?</em></h4>
+					    <p>The scatter plot on the left shows over 200 countries about their total population and percentage of aging population above 65. To drill down to explore a particular country, you can click on the circle and get a trend line chart on the right.</p>
 				    </p>
 			    </div>
 
@@ -64,10 +65,10 @@
         	    
         	<li><strong>Scenes</strong></li>
         		<ul>
-        			<Strong>Layout: </Strong>The layout of the scene consists of two charts. A scatterplot on the left (Population above age of 65 (% of Total) VS. Total Population) and a line chart on the right (Population Above 65 (%) in Different Countries 1998-2016).
+        			<Strong>Layout: </Strong>The layout of the scene consists of two charts. A scatterplot on the left (Population above age of 65 (% of Total) VS. Total Population) and a line chart on the right (Population Above 65 (%) in Different Countries 1998-2016). 
         		</ul>
         		<ul>
-        		    <STRONG>Design: </STRONG>When scenes change with different parameters(<em>year</em> for scatterplot and <em>country</em> for line chart), they always follow the same template which are the scatterplot and line chart. The axis of the two chart never change in order to show the transition and difference when parameters change.
+        		    <STRONG>Design: </STRONG>The x axis of scatter plot is logrithmic scaled to make circles spread and the x axis extend the range of the data. The y axis of scatter plot is linear scaled, and range is from 0 to max of the data. The x axis of line chart is time scaled, range from 1998 to 2016; the y axis of line chart is linear scaled and range from 0 to max of the dataset. When scenes change with different parameters(<em>year</em> for scatterplot and <em>country</em> for line chart), they always follow the same template which are the scatterplot and line chart. The axis of the two chart never change in order to show the transition and difference when parameters change.
         		</ul>
         		
         	<li><strong>Annotations</strong></li>
@@ -97,6 +98,11 @@
         	    	Users can <strong>mouse over</strong> the circles on the scatterplot, and get more details through tooltip.
         	    </li>
         	</ul>
+        	<li><strong>Reference</strong></li>
+	        	<ul>
+	        		<li>
+	        		Interactive Data Visualization for the Web, 2nd Edition, by Scott Murray.</li>
+	        	</ul>
         </div>
         <br>
         <br>
