@@ -6,9 +6,6 @@
 .label {
 	stroke: :#000;
 }
-circle:hover {
-    fill: yellow;
-}
 
 #tooltip {
     position: absolute;

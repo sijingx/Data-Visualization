@@ -147,6 +147,14 @@ d3.csv("data.csv", rowConverter, function(d) {
              
 	         .style("fill", function(d){return color(d.Region);})
              .on("mouseover", function(d) {
+
+                d3.select(this)
+                  .attr("r", 8)
+                  .style("fill", "yellow")
+                  .style("stroke-width", "2px")
+
+
+
                 var xPosition = parseFloat(d3.select(this).attr("cx"));
                 var yPosition = parseFloat(d3.select(this).attr("cy"));
                 d3.select("#tooltip")
@@ -170,6 +178,11 @@ d3.csv("data.csv", rowConverter, function(d) {
              })
              .on("mouseout", function(){
                 d3.select("#tooltip").classed("hidden", true);
+                d3.select(this).attr("r", 4)
+                  .transition("radius")
+                  .duration(250)
+                  .style("fill", function(d){return color(d.Region)})
+                  .style("stroke-width", "1px")
              })
              .on("click", countryChange)
 
