@@ -5,7 +5,7 @@ This visualization is written using D3.js from scratch. It includes a scatter pl
 
 ## Implementation
 
-First, clone the repository.
+First, clone the repository.  
 Second, using localhost to open "index.html".
 
 ## About the viualization
